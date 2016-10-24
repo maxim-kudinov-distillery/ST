@@ -1,0 +1,26 @@
+﻿@model Web.ViewModels.Suppliers.SuppliersVM
+
+<table class="tableList">
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Supplier.Name)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach(var obj in Model.Suppliers)
+    {
+        <tr data-id="@obj.SupplierId">
+            <td class="listName">
+                @Html.DisplayFor(a => obj.Name)
+            </td>
+
+            <td>
+                <img src="/gfx/folder_edit.gif" class="listEdit" />
+            </td>
+            <td>
+                <img src="/gfx/bin.gif" class="listDelete" />
+            </td>
+        </tr>
+    }
+</table>

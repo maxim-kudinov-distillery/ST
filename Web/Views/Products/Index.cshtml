@@ -1,0 +1,195 @@
+﻿@model Web.ViewModels.Products.ProductsVM
+@section scripts {
+    <script type="text/javascript">
+
+        function UpdateObject() {
+
+            var formDataJson = GetData();
+            var jsonString = JSON.stringify(formDataJson);
+
+            AjaxRequest("/Products/ProductsSaveData", jsonString);
+        }
+
+
+        function DeleteObject(id) {
+
+            var data = '{ id : ' + id + '}'
+            AjaxRequest("/Products/ProductDelete", data);
+        }
+
+        function AjaxRequest(url, data) {
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                contentType: 'application/json; charset=utf-8',
+                data: data,
+                cache: false,
+                dataType: "json",
+                success: function (data) {
+
+                    if (!data.ValidationError) {
+                        UpdateSuccess();
+                    }
+
+                    //Display message if any
+                    if (data.Message) {
+                        alert(data.Message);
+                    }
+
+                    //Redirect if any url
+                    if (data.RedirectUrl) {
+                        window.location = data.RedirectUrl;
+                    }
+
+                    //Display error if any
+                    if (data.ValidationError) {
+                        alert(data.ValidationError);
+                    }
+
+
+                },
+                failure: function (data) {
+                    alert("errorOccurredText");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("errorOccurredText");
+                }
+            });
+        }
+
+
+
+        function UpdateSuccess() {
+            window.location = "/Products";
+        }
+
+
+        function LoadInputData(id) {
+
+            window.location = "Products?id=" + id;
+        }
+
+
+        function ToggleNewEdit() {
+
+            var id = GetInputHiddenVal("objId");
+
+            if (id > 0) {
+                $("#headline").text("Edit product");
+                $("#saveButton").val("Save changes");
+                $("#cancelButton").show();
+            }
+            else {
+                $("#headline").text("Add product");
+                $("#saveButton").val("Save new product");
+                $("#cancelButton").hide();
+            }
+        }
+
+        function GetData() {
+            var activeForm = $(".formData form");
+
+            var response = activeForm.toObject({ skipEmpty: false });
+            return response;
+        }
+
+
+        $(document).ready(function () {
+
+            ToggleNewEdit();
+
+
+            //Load edit button events in table
+            $(document).on("click", ".listEdit", function () {
+                var id = $(this).closest("tr").data("id");
+
+                LoadInputData(id);
+                return false;
+            });
+
+            //Load delete button events in table
+            $(document).on("click", ".listDelete", function () {
+                var id = $(this).closest("tr").data("id");
+
+                DeleteObject(id);
+                return false;
+            });
+
+
+            //Load cancel button event
+            $(document).on("click", "#cancelButton", function () {
+                window.location = "Products";
+            });
+
+
+
+            //Load submit event
+            $(".formData").on("submit", "form", function () {
+
+                if ($(this).valid()) {
+
+                    //Proceed with updates
+                    UpdateObject();
+                }
+                return false;
+            });
+        });
+
+
+       
+
+    </script>
+}
+@{
+    ViewBag.Title = "Products";
+}
+<h1>Products</h1>
+<div id="inputData" class="formData">
+    @using(Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        
+        <h2 id="headline"></h2>
+        
+
+        <div class="objId">
+            @Html.HiddenFor(model => model.Product.ProductId)
+        </div>
+        
+        <fieldset>
+
+            <div class="editor-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Product.Name)
+                </div>
+                <div class="editor-field objName">
+                    @Html.EditorFor(model => model.Product.Name)
+                    @Html.ValidationMessageFor(model => model.Product.Name)
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+
+            <div class="editor-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Product.SupplierId)
+                </div>
+                <div class="editor-field objSupplierId">
+                    @Html.DropDownListFor(model => model.Product.SupplierId, (SelectList)ViewBag.SupplierSelectList, "Select supplier")
+                    @Html.ValidationMessageFor(model => model.Product.SupplierId)
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+
+
+            <div class="editor-group editor-last">
+                <input id="saveButton" type="submit" />
+                <input id="cancelButton" type="button" value="Cancel" />
+            </div>
+        </fieldset>
+    }
+</div>
+<div id="tableRows">
+    @Html.Partial("_ProductsList", Model)
+</div>

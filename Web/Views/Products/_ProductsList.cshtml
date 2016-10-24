@@ -1,0 +1,34 @@
+﻿@model Web.ViewModels.Products.ProductsVM
+
+<table class="tableList">
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.Product.Name)
+        </th>
+        <th>
+            @Html.LabelFor(model => model.Product.SupplierId)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+    @{
+        var supplierList = (SelectList)ViewBag.SupplierSelectList;
+    }
+    @foreach(var obj in Model.Products)
+    {
+        <tr data-id="@obj.ProductId">
+            <td class="listName">
+                @Html.DisplayFor(a => obj.Name)
+            </td>
+            <td class="listSupplierId">
+                @supplierList.Where(a => a.Value == obj.SupplierId.ToString()).First().Text
+            </td>
+            <td>
+                <img src="/gfx/folder_edit.gif" class="listEdit" />
+            </td>
+            <td>
+                <img src="/gfx/bin.gif" class="listDelete" />
+            </td>
+        </tr>
+    }
+</table>
