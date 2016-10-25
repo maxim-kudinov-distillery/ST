@@ -42,6 +42,28 @@ namespace Data.Migrations
                 new Product { Name = "Product Ten", CreatedDate = DateTime.UtcNow, Supplier = suppliersArray[4] }
             );
 
+            var categoriesArray = new[]
+            {
+                new Category { Name="Category One" },
+                new Category { Name="Category Two" },
+                new Category { Name="Category Three" },
+                new Category { Name="Category Four" },
+                new Category { Name="Category Five" },
+                new Category { Name="Category Six" },
+                new Category { Name="Category Seven" }
+            };
+
+            categoriesArray[1].Parent = categoriesArray[0];
+            categoriesArray[2].Parent = categoriesArray[0];
+            categoriesArray[4].Parent = categoriesArray[3];
+            categoriesArray[5].Parent = categoriesArray[3];
+            categoriesArray[6].Parent = categoriesArray[3];
+
+            ctx.Categories.AddOrUpdate(
+                c => c.CategoryId,
+                categoriesArray
+            );
+
             ctx.SaveChanges();
         }
     }

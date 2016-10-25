@@ -55,7 +55,12 @@
     <Compile Include="Migrations\201610251722566_InitialMigration.Designer.cs">
       <DependentUpon>201610251722566_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610252008457_CategoriesMigration.cs" />
+    <Compile Include="Migrations\201610252008457_CategoriesMigration.Designer.cs">
+      <DependentUpon>201610252008457_CategoriesMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DataContext.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\Product.cs" />
@@ -70,6 +75,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201610251722566_InitialMigration.resx">
       <DependentUpon>201610251722566_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610252008457_CategoriesMigration.resx">
+      <DependentUpon>201610252008457_CategoriesMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
