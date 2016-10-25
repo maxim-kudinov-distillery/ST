@@ -18,7 +18,6 @@ namespace Data.Models
 
         public DateTime CreatedDate { get; set; }
 
-
         public virtual ICollection<Product> Products { get; set; }
     }
 }
