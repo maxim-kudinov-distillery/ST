@@ -24,12 +24,12 @@ namespace Data.Migrations
             };
 
             ctx.Suppliers.AddOrUpdate(
-                s => s.SupplierId,
+                s => s.Id,
                 suppliersArray
             );
 
             ctx.Products.AddOrUpdate(
-                p => p.ProductId,
+                p => p.Id,
                 new Product { Name = "Product One", CreatedDate = DateTime.UtcNow, Supplier = suppliersArray[0] },
                 new Product { Name = "Product Two", CreatedDate = DateTime.UtcNow, Supplier = suppliersArray[0] },
                 new Product { Name = "Product Three", CreatedDate = DateTime.UtcNow, Supplier = suppliersArray[1] },
@@ -44,13 +44,13 @@ namespace Data.Migrations
 
             var categoriesArray = new[]
             {
-                new Category { Name="Category One" },
-                new Category { Name="Category Two" },
-                new Category { Name="Category Three" },
-                new Category { Name="Category Four" },
-                new Category { Name="Category Five" },
-                new Category { Name="Category Six" },
-                new Category { Name="Category Seven" }
+                new Category { Name="Category One", CreatedDate = DateTime.UtcNow },
+                new Category { Name="Category Two", CreatedDate = DateTime.UtcNow },
+                new Category { Name="Category Three", CreatedDate = DateTime.UtcNow },
+                new Category { Name="Category Four", CreatedDate = DateTime.UtcNow },
+                new Category { Name="Category Five", CreatedDate = DateTime.UtcNow },
+                new Category { Name="Category Six", CreatedDate = DateTime.UtcNow },
+                new Category { Name="Category Seven", CreatedDate = DateTime.UtcNow }
             };
 
             categoriesArray[1].Parent = categoriesArray[0];
@@ -60,7 +60,7 @@ namespace Data.Migrations
             categoriesArray[6].Parent = categoriesArray[3];
 
             ctx.Categories.AddOrUpdate(
-                c => c.CategoryId,
+                c => c.Id,
                 categoriesArray
             );
 

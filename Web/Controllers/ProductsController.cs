@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Data.Models;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
-using Data.Models;
 using Web.ViewModels;
 using Web.ViewModels.Products;
 
@@ -30,7 +26,7 @@ namespace Web.Controllers
             model.Products = _ProductBusiness.Select().OrderBy(a => a.Name);
 
 
-            ViewBag.SupplierSelectList = new SelectList(_SupplierBusiness.Select().OrderBy(a => a.Name), "SupplierId", "Name");
+            ViewBag.SupplierSelectList = new SelectList(_SupplierBusiness.Select().OrderBy(a => a.Name), "Id", "Name");
 
             return View(model);
         }
@@ -39,12 +35,12 @@ namespace Web.Controllers
         [HttpPost]
         public JsonResult ProductsSaveData(ProductsVM supplierVm)
         {
-            var isEdit = supplierVm.Product.ProductId > 0;
+            var isEdit = supplierVm.Product.Id > 0;
 
             var obj = new Product();
 
             if(isEdit)
-                obj = _ProductBusiness.SelectOneById(supplierVm.Product.ProductId);
+                obj = _ProductBusiness.SelectOneById(supplierVm.Product.Id);
 
 
             obj.Name = supplierVm.Product.Name;
@@ -60,7 +56,7 @@ namespace Web.Controllers
                 var success = _ProductBusiness.Create(obj);
 
                 if(success)
-                    return Json(new DefaultReturnVM() { NewCreatedId = obj.ProductId });
+                    return Json(new DefaultReturnVM() { NewCreatedId = obj.Id });
                 else
                     return Json(new DefaultReturnVM() { ValidationError = "Error creating Product" });
             }

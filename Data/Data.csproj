@@ -59,7 +59,12 @@
     <Compile Include="Migrations\201610252008457_CategoriesMigration.Designer.cs">
       <DependentUpon>201610252008457_CategoriesMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610262149435_BaseBusiness.cs" />
+    <Compile Include="Migrations\201610262149435_BaseBusiness.Designer.cs">
+      <DependentUpon>201610262149435_BaseBusiness.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DataContext.cs" />
     <Compile Include="Models\Supplier.cs" />
@@ -78,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610252008457_CategoriesMigration.resx">
       <DependentUpon>201610252008457_CategoriesMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610262149435_BaseBusiness.resx">
+      <DependentUpon>201610262149435_BaseBusiness.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

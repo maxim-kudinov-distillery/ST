@@ -37,12 +37,12 @@ namespace Web.Controllers
         [HttpPost]
         public JsonResult SuppliersSaveData(SuppliersVM supplierVm)
         {
-            var isEdit = supplierVm.Supplier.SupplierId > 0;
+            var isEdit = supplierVm.Supplier.Id > 0;
 
             var obj = new Supplier();
 
             if(isEdit)
-                obj = _SupplierBusiness.SelectOneById(supplierVm.Supplier.SupplierId);
+                obj = _SupplierBusiness.SelectOneById(supplierVm.Supplier.Id);
 
 
             obj.Name = supplierVm.Supplier.Name;
@@ -58,7 +58,7 @@ namespace Web.Controllers
                 var success = _SupplierBusiness.Create(obj);
 
                 if(success)
-                    return Json(new DefaultReturnVM() { NewCreatedId = obj.SupplierId });
+                    return Json(new DefaultReturnVM() { NewCreatedId = obj.Id });
                 else
                     return Json(new DefaultReturnVM() { ValidationError = "Error creating Supplier" });
             }

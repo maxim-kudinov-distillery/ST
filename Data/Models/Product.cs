@@ -5,15 +5,10 @@ using System.ComponentModel.DataAnnotations;
 namespace Data.Models
 {
     [Serializable]
-    public class Product
+    public class Product: BaseEntity
     {
-        [DisplayName("Id")]
-        public int ProductId { get; set; }
-
         [Required]
         public string Name { get; set; }
-
-        public DateTime CreatedDate { get; set; }
 
         [DisplayName("Supplier")]
         [Required]

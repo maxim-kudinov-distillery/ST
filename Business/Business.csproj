@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BaseBusiness.cs" />
     <Compile Include="Controllers\ProductBusiness.cs" />
     <Compile Include="Controllers\SupplierBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
