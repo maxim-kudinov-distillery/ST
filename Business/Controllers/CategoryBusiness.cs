@@ -2,7 +2,7 @@
 
 namespace Business.Controllers
 {
-    class CategoryBusiness: BaseBusiness<Category>
+    public class CategoryBusiness: BaseBusiness<Category>
     {
         public CategoryBusiness(DataContext ctx) : base(ctx)
         {

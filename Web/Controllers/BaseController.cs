@@ -1,24 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Business;
-using Business.Controllers;
+﻿using Business.Controllers;
 using Data.Models;
+using System.Web.Mvc;
 
 namespace Web.Controllers
 {
     public class BaseController : Controller
     {
-
         private DataContext _ctx;
         protected DataContext _Ctx
         {
             get { return _ctx ?? (_ctx = new DataContext()); }
         }
-
-
 
         #region Lazy load controllers
         private SupplierBusiness _supplierBusiness;
@@ -32,9 +24,12 @@ namespace Web.Controllers
         {
             get { return _productBusiness ?? (_productBusiness = new ProductBusiness(_Ctx)); }
         }
+
+        private CategoryBusiness _categoryBusiness;
+        public CategoryBusiness _CategoryBusiness
+        {
+            get { return _categoryBusiness ?? (_categoryBusiness = new CategoryBusiness(_Ctx)); }
+        }
         #endregion
-
- 
-
     }
 }
