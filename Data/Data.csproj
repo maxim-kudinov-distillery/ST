@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ITreeRenderable.cs" />
     <Compile Include="Migrations\201610251722566_InitialMigration.cs" />
     <Compile Include="Migrations\201610251722566_InitialMigration.Designer.cs">
       <DependentUpon>201610251722566_InitialMigration.cs</DependentUpon>
@@ -62,6 +63,10 @@
     <Compile Include="Migrations\201610262149435_BaseBusiness.cs" />
     <Compile Include="Migrations\201610262149435_BaseBusiness.Designer.cs">
       <DependentUpon>201610262149435_BaseBusiness.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611021424431_TreeHelper.cs" />
+    <Compile Include="Migrations\201611021424431_TreeHelper.Designer.cs">
+      <DependentUpon>201611021424431_TreeHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -86,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610262149435_BaseBusiness.resx">
       <DependentUpon>201610262149435_BaseBusiness.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611021424431_TreeHelper.resx">
+      <DependentUpon>201611021424431_TreeHelper.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

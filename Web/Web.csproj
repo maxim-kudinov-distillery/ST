@@ -129,6 +129,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\TreeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Categories\CategoriesVM.cs" />
     <Compile Include="ViewModels\DefaultReturnVM.cs" />
@@ -140,7 +141,7 @@
     <Content Include="App_Data\db_log.ldf">
       <DependentUpon>db.mdf</DependentUpon>
     </Content>
-    <Content Include="Content\jsTree\themes\default\category.png" />
+    <Content Include="Content\jsTree\themes\default\leaf.png" />
     <Content Include="Content\jsTree\themes\default\folder.png" />
     <Content Include="Content\jsTree\themes\default\root.png" />
     <Content Include="Scripts\Categories\categories.js" />

@@ -1,20 +1,14 @@
 ﻿@model Web.ViewModels.Categories.CategoriesVM
 
+@using Data.Models
+@using Web.Helpers
+
 <div id="jstree">
     <ul>
         <li data-jstree='{"opened": true, "type": "root"}'>Categories
             @foreach (var rootCategory in Model.Categories.Where(c => c.ParentId == null))
             {
-                <ul>
-                    <li id="@rootCategory.Id" data-jstree='{"opened": true, "type": "folder"}'>@rootCategory.Name
-                        <ul>
-                            @foreach (var childCategory in rootCategory.Children)
-                            {
-                                <li id="@childCategory.Id" data-jstree='{"type": "category"}'>@childCategory.Name</li>
-                            }
-                        </ul>
-                    </li>
-                </ul>
+                <ul>@(TreeHelper.RenderJsTree<Category>(rootCategory))</ul>
             }
         </li>
     </ul>

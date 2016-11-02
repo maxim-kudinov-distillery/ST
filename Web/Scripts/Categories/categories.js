@@ -13,12 +13,12 @@
                 "icon": "/Content/jsTree/themes/default/root.png"
             },
             "folder": {
-                "valid_children": ["folder", "category"],
+                "valid_children": ["folder", "leaf"],
                 "icon": "/Content/jsTree/themes/default/folder.png"
             },
-            "category": {
+            "leaf": {
                 "valid_children": [],
-                "icon": "/Content/jsTree/themes/default/category.png"
+                "icon": "/Content/jsTree/themes/default/leaf.png"
             }
         },
         "contextmenu": {
