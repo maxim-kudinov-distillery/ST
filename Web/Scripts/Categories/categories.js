@@ -31,17 +31,20 @@
         var items = {
             create: {
                 "label": "Create",
-                "action": function (obj) {
+                "action": function (node) {
                 }
             },
             rename: {
                 "label": "Rename",
-                "action": function (obj) {
+                "action": function (node) {
+                    var iconSize = 24;
+                    var padding = 2;
+                    $("#nameInput").offset({top: node.position.y - iconSize, left: node.position.x + iconSize + padding}).show();
                 }
             },
             deleteOption: {
                 "label": "Delete",
-                "action": function (obj) {
+                "action": function (node) {
                 }
             }
         }
@@ -54,4 +57,26 @@
 
         return items;
     }
+
+    //buttons click handlers
+
+    $("#addFolder").on("click", function() {
+        var tree = $("#jstree").jstree(true);
+             
+    });
+
+    $("#cancel").on("click", function(){
+        location.reload();
+    });
+
+    //inline input buttons handlers
+    $("#nameInput").on( "keyup", function (e) {
+        if (e.keyCode == 27) { //escape
+            $(this).val("");
+            $(this).hide();
+        } else if (e.keyCode == 13) { //enter
+            //rename node
+            $(this).hide();
+        }
+    });
 });
