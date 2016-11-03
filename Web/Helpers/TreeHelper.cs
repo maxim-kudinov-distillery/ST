@@ -14,7 +14,7 @@ namespace Web.Helpers
 
             if (node.Children != null && node.Children.Any())
             {
-                nodeLi.MergeAttribute("data-jstree", "{\"opened\": true, \"type\": \"folder\"}");
+                nodeLi.MergeAttribute("data-jstree", "{\"opened\": true, \"type\": \"folder\", \"id\": " + node.Id.ToString() + "}");
                 var ul = new TagBuilder("ul");
                 foreach (var childNode in node.Children)
                 {
@@ -25,7 +25,7 @@ namespace Web.Helpers
             }
             else
             {
-                nodeLi.MergeAttribute("data-jstree", "{\"type\": \"leaf\"}");
+                nodeLi.MergeAttribute("data-jstree", "{\"type\": \"leaf\", \"id\": " + node.Id.ToString() + "}");
             }
 
             return MvcHtmlString.Create(nodeLi.ToString());

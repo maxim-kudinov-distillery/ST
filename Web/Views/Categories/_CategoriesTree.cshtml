@@ -5,7 +5,7 @@
 
 <div id="jstree">
     <ul>
-        <li data-jstree='{"opened": true, "type": "root"}'>Categories
+        <li data-jstree='{"opened": true, "type": "root", "id": "0"}'>Categories
             @foreach (var rootCategory in Model.Categories.Where(c => c.ParentId == null))
             {
                 <ul>@(TreeHelper.RenderJsTree<Category>(rootCategory))</ul>
@@ -16,5 +16,5 @@
 
 <input id="nameInput" type="text" placeholder="Enter new node name here" />       
 
-<script src="/Scripts/jsTree/jstree.min.js"></script>
+<script src="/Scripts/jsTree/jstree.js"></script>
 <script src="/Scripts/Categories/categories.js"></script>

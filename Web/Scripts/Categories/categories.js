@@ -27,25 +27,45 @@
         "plugins": ["wholerow", "dnd", "types", "contextmenu"]
     });
 
+    var tree = $("#jstree").jstree(true); 
+
+    function CreateAction(data) {
+        var parentNode = tree.get_node(data.reference);
+        if (parentNode.type == "leaf") {
+            tree.set_type(parentNode, "folder");
+        }
+
+        var createdNode = tree.create_node(parentNode, { "type": "leaf", "state": "selected", "text": "New node" });
+
+        tree.edit(createdNode);
+    }
+
+    function RenameAction(data) {
+        tree.edit(data.reference);
+    }
+
+    function DeleteAction(data) {
+        var parentNode = tree.get_parent(data.reference);
+        tree.delete_node(data.reference);
+
+        if (tree.is_leaf(parentNode)) {
+            tree.set_type(parentNode, "leaf");
+        }
+    }
+
     function customMenu(node) {
         var items = {
             create: {
                 "label": "Create",
-                "action": function (node) {
-                }
+                "action": CreateAction 
             },
             rename: {
                 "label": "Rename",
-                "action": function (node) {
-                    var iconSize = 24;
-                    var padding = 2;
-                    $("#nameInput").offset({top: node.position.y - iconSize, left: node.position.x + iconSize + padding}).show();
-                }
+                "action": RenameAction
             },
             deleteOption: {
                 "label": "Delete",
-                "action": function (node) {
-                }
+                "action": DeleteAction
             }
         }
 
@@ -60,23 +80,11 @@
 
     //buttons click handlers
 
-    $("#addFolder").on("click", function() {
-        var tree = $("#jstree").jstree(true);
-             
+    $("#addFolder").on("click", function () {
+
     });
 
     $("#cancel").on("click", function(){
         location.reload();
-    });
-
-    //inline input buttons handlers
-    $("#nameInput").on( "keyup", function (e) {
-        if (e.keyCode == 27) { //escape
-            $(this).val("");
-            $(this).hide();
-        } else if (e.keyCode == 13) { //enter
-            //rename node
-            $(this).hide();
-        }
     });
 });
