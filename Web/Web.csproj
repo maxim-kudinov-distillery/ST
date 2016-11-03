@@ -146,7 +146,6 @@
     <Content Include="Content\jsTree\themes\default\root.png" />
     <Content Include="Scripts\Categories\categories.js" />
     <Content Include="Scripts\jsTree\jstree.js" />
-    <Content Include="Scripts\jsTree\jstree.min.js" />
     <Content Include="Content\jsTree\themes\default\32px.png" />
     <Content Include="Content\jsTree\themes\default\40px.png" />
     <Content Include="Content\jsTree\themes\default\style.min.css" />

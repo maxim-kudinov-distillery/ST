@@ -9,7 +9,7 @@
                 "Valid_children": ["root"]
             },
             "root": {
-                "valid_children": ["folder"],
+                "valid_children": ["folder", "leaf"],
                 "icon": "/Content/jsTree/themes/default/root.png"
             },
             "folder": {
@@ -29,24 +29,30 @@
 
     var tree = $("#jstree").jstree(true); 
 
-    function CreateAction(data) {
-        var parentNode = tree.get_node(data.reference);
-        if (parentNode.type == "leaf") {
-            tree.set_type(parentNode, "folder");
+    function CreateNode(node) {
+        if (node === false) return;
+
+        var node = tree.get_node(node);
+        if (node.type == "leaf") {
+            tree.set_type(node, "folder");
         }
 
-        var createdNode = tree.create_node(parentNode, { "type": "leaf", "state": "selected", "text": "New node" });
+        var leafNode = tree.create_node(node, { "type": "leaf", "state": "selected", "text": "New node" });
 
-        tree.edit(createdNode);
+        tree.edit(leafNode);
     }
 
-    function RenameAction(data) {
-        tree.edit(data.reference);
+    function RenameNode(node) {
+        if (node === false) return;
+
+        tree.edit(node);
     }
 
-    function DeleteAction(data) {
-        var parentNode = tree.get_parent(data.reference);
-        tree.delete_node(data.reference);
+    function DeleteNode(node) {
+        if (node === false) return;
+
+        var parentNode = tree.get_parent(node);
+        tree.delete_node(node);
 
         if (tree.is_leaf(parentNode)) {
             tree.set_type(parentNode, "leaf");
@@ -57,20 +63,25 @@
         var items = {
             create: {
                 "label": "Create",
-                "action": CreateAction 
+                "action": function (data) {
+                    CreateNode(data.reference);
+                }
             },
             rename: {
                 "label": "Rename",
-                "action": RenameAction
+                "action": function (data) {
+                    RenameNode(data.reference);
+                }
             },
             deleteOption: {
                 "label": "Delete",
-                "action": DeleteAction
+                "action": function (data) {
+                    DeleteNode(data.reference);
+                }
             }
         }
 
         if (node.type == "root") {
-            delete items.create;
             delete items.rename;
             delete items.deleteOption;
         }
@@ -80,7 +91,19 @@
 
     //buttons click handlers
 
-    $("#addFolder").on("click", function () {
+    $("#add").on("click", function () {
+        var selectedNode = tree.get_selected(true)[0];
+        var type = tree.get_type(selectedNode);
+
+        if (selectedNode === undefined) {
+            var rootNode = tree.get_node("#root");
+            CreateNode(rootNode);
+        } else {
+            CreateNode(selectedNode);
+        }
+    });
+
+    $("#save").on("click", function () {
 
     });
 
