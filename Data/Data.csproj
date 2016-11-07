@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201611021424431_TreeHelper.Designer.cs">
       <DependentUpon>201611021424431_TreeHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611072113370_CategoriesToProducts.cs" />
+    <Compile Include="Migrations\201611072113370_CategoriesToProducts.Designer.cs">
+      <DependentUpon>201611072113370_CategoriesToProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Category.cs" />
@@ -96,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611021424431_TreeHelper.resx">
       <DependentUpon>201611021424431_TreeHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611072113370_CategoriesToProducts.resx">
+      <DependentUpon>201611072113370_CategoriesToProducts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

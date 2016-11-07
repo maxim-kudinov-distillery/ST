@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Web.ViewModels.Categories
 {
-    public class CategoriesVM: TreeVM
+    public class TreeVM
     {
-        public Category Category { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
     }
 }

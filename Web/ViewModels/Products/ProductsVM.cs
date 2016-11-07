@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Data.Models;
+using System.Collections.Generic;
+using Web.ViewModels.Categories;
 
 namespace Web.ViewModels.Products
 {
-    public class ProductsVM
+    public class ProductsVM: TreeVM
     {
-        public Data.Models.Product Product { get; set; }
-        public IEnumerable<Data.Models.Product> Products { get; set; }
+        public Product Product { get; set; }
+        public IEnumerable<Product> Products { get; set; }
     }
 }

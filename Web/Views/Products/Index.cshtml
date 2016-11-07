@@ -1,4 +1,8 @@
 ﻿@model Web.ViewModels.Products.ProductsVM
+@using Data.Models
+@using Web.Helpers
+@using Web.ViewModels.Categories;
+
 @section scripts {
     <script type="text/javascript">
 
@@ -141,6 +145,12 @@
 
     </script>
 }
+
+@section stylesheets
+{
+    <link href="/Content/jsTree/themes/default/style.min.css" rel="stylesheet" />
+}
+
 @{
     ViewBag.Title = "Products";
 }
@@ -182,6 +192,17 @@
                 <div class="clearBoth"></div>
             </div>
 
+            <div class="editor-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Product.Categories)
+                </div>
+                <div id="categoriesTree">
+                    <p>
+                        @Html.Partial("../Categories/_CategoriesTree", new TreeVM { Categories = Model.Categories })
+                    </p>
+                </div>
+                <div class="clearBoth"></div>
+            </div>
 
             <div class="editor-group editor-last">
                 <input id="saveButton" type="submit" />

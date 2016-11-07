@@ -13,5 +13,7 @@ namespace Data.Models
 
         [ForeignKey("ParentId")]
         public virtual ICollection<Category> Children { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }

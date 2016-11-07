@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,5 +12,7 @@ namespace Data.Models
         [Required]
         public int SupplierId { get; set; }
         public virtual Supplier Supplier { get; set; }
+
+        public ICollection<Category> Categories { get; set; }
     }
 }

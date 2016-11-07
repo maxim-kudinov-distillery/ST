@@ -24,7 +24,7 @@ namespace Web.Controllers
             }
 
             model.Products = _ProductBusiness.Select().OrderBy(a => a.Name);
-
+            model.Categories = _CategoryBusiness.Select().OrderBy(c => c.Id);
 
             ViewBag.SupplierSelectList = new SelectList(_SupplierBusiness.Select().OrderBy(a => a.Name), "Id", "Name");
 

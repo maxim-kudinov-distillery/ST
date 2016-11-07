@@ -1,4 +1,5 @@
 ﻿@model Web.ViewModels.Categories.CategoriesVM
+@using Web.ViewModels.Categories;
 @{ 
     ViewBag.Title = "Categories";
 }
@@ -18,7 +19,7 @@
 </div>
 <div id="categoriesTree">
     <p>
-        @Html.Partial("_CategoriesTree", Model)
+        @Html.Partial("_CategoriesTree", new TreeVM { Categories = Model.Categories })
     </p>
 </div>
 
