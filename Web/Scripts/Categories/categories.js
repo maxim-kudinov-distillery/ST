@@ -17,7 +17,7 @@
                 "icon": "/Content/jsTree/themes/default/folder.png"
             },
             "leaf": {
-                "valid_children": [],
+                "valid_children": ["leaf"],
                 "icon": "/Content/jsTree/themes/default/leaf.png"
             }
         },
@@ -27,7 +27,7 @@
         "plugins": ["wholerow", "dnd", "types", "contextmenu"]
     });
 
-    var tree = $("#jstree").jstree(true); 
+    var tree = $("#jstree").jstree(true);
 
     function CreateNode(node) {
         if (node === false) return;
@@ -104,7 +104,17 @@
     });
 
     $("#save").on("click", function () {
-
+        var nodes = tree.get_json(undefined, { no_state: true, no_data: true, no_li_attr: true, no_a_attr: true });
+        $.post("/Categories/Save", "nodesString=" + JSON.stringify(nodes), function () { alert("Saved") }, "json");
+        //jQuery.ajax({
+        //    type: "POST",
+        //    url: "/Categories/Save",
+        //    dataType: "json",
+        //    contentType: "application/json; charset=utf-8",
+        //    data: JSON.stringify(nodes),
+        //    success: function (successData) { alert(successData); },
+        //    failure: function (failureData) { alert(failureData); }
+        //});
     });
 
     $("#cancel").on("click", function(){

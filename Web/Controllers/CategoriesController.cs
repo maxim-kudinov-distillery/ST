@@ -27,5 +27,11 @@ namespace Web.Controllers
 
             return View(viewModel);
         }
+
+        [HttpPost]
+        public JsonResult Save(string nodesString)
+        {
+            return null;
+        }
     }
 }
