@@ -48,6 +48,8 @@
         tree.edit(node);
     }
 
+    var nodesToDeleteFromDB = [];
+
     function DeleteNode(node) {
         if (node === false) return;
 
@@ -56,6 +58,13 @@
 
         if (tree.is_leaf(parentNode)) {
             tree.set_type(parentNode, "leaf");
+        }
+
+        //to Save the tree we'll need a list on deleted nodes
+        //we should only include the nodes that are in DB
+        //those nodes have int ids that can be parsed
+        if (parseInt(node.prevObject[0].id, 10)) {
+            nodesToDeleteFromDB.push({ id: node.prevObject[0].id});
         }
     }
 
@@ -105,16 +114,8 @@
 
     $("#save").on("click", function () {
         var nodes = tree.get_json(undefined, { no_state: true, no_data: true, no_li_attr: true, no_a_attr: true });
-        $.post("/Categories/Save", "nodesString=" + JSON.stringify(nodes), function () { alert("Saved") }, "json");
-        //jQuery.ajax({
-        //    type: "POST",
-        //    url: "/Categories/Save",
-        //    dataType: "json",
-        //    contentType: "application/json; charset=utf-8",
-        //    data: JSON.stringify(nodes),
-        //    success: function (successData) { alert(successData); },
-        //    failure: function (failureData) { alert(failureData); }
-        //});
+        $.post("/Categories/Save", { treeJson: JSON.stringify(nodes), nodesToDeleteJson: JSON.stringify(nodesToDeleteFromDB) }, function () { alert("Saved") }, "json");
+
     });
 
     $("#cancel").on("click", function(){

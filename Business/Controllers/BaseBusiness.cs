@@ -9,7 +9,7 @@ namespace Business.Controllers
 {
     public class BaseBusiness<T> where T : BaseEntity
     {
-        private readonly DataContext _Ctx;
+        protected readonly DataContext _Ctx;
 
         public BaseBusiness(DataContext ctx)
         {

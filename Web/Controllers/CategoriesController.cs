@@ -1,9 +1,9 @@
 ﻿using Data.Models;
-using System;
+using Data.Models.jsTree;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Web.ViewModels.Categories;
 
 namespace Web.Controllers
@@ -29,8 +29,20 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult Save(string nodesString)
+        public JsonResult Save(string treeJson, string nodesToDeleteJson)
         {
+            var jsSerializer = new JavaScriptSerializer();
+            var tree = jsSerializer.Deserialize<List<JsTreeModel>>(treeJson);
+            if (_CategoryBusiness.TrySaveTree(tree[0], null))
+            {
+                var nodesToDelete = jsSerializer.Deserialize<List<NodeModel>>(nodesToDeleteJson);
+                if (_CategoryBusiness.TryDeleteNodes(nodesToDelete))
+                {
+                    _Ctx.SaveChanges();
+                    return Json(string.Empty);
+                }
+            }
+
             return null;
         }
     }
