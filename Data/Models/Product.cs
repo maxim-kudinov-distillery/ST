@@ -13,6 +13,6 @@ namespace Data.Models
         public int SupplierId { get; set; }
         public virtual Supplier Supplier { get; set; }
 
-        public ICollection<Category> Categories { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
     }
 }

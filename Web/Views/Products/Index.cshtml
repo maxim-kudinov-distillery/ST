@@ -4,146 +4,7 @@
 @using Web.ViewModels.Categories;
 
 @section scripts {
-    <script type="text/javascript">
-
-        function UpdateObject() {
-
-            var formDataJson = GetData();
-            var jsonString = JSON.stringify(formDataJson);
-
-            AjaxRequest("/Products/ProductsSaveData", jsonString);
-        }
-
-
-        function DeleteObject(id) {
-
-            var data = '{ id : ' + id + '}'
-            AjaxRequest("/Products/ProductDelete", data);
-        }
-
-        function AjaxRequest(url, data) {
-
-            $.ajax({
-                type: "POST",
-                url: url,
-                contentType: 'application/json; charset=utf-8',
-                data: data,
-                cache: false,
-                dataType: "json",
-                success: function (data) {
-
-                    if (!data.ValidationError) {
-                        UpdateSuccess();
-                    }
-
-                    //Display message if any
-                    if (data.Message) {
-                        alert(data.Message);
-                    }
-
-                    //Redirect if any url
-                    if (data.RedirectUrl) {
-                        window.location = data.RedirectUrl;
-                    }
-
-                    //Display error if any
-                    if (data.ValidationError) {
-                        alert(data.ValidationError);
-                    }
-
-
-                },
-                failure: function (data) {
-                    alert("errorOccurredText");
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert("errorOccurredText");
-                }
-            });
-        }
-
-
-
-        function UpdateSuccess() {
-            window.location = "/Products";
-        }
-
-
-        function LoadInputData(id) {
-
-            window.location = "Products?id=" + id;
-        }
-
-
-        function ToggleNewEdit() {
-
-            var id = GetInputHiddenVal("objId");
-
-            if (id > 0) {
-                $("#headline").text("Edit product");
-                $("#saveButton").val("Save changes");
-                $("#cancelButton").show();
-            }
-            else {
-                $("#headline").text("Add product");
-                $("#saveButton").val("Save new product");
-                $("#cancelButton").hide();
-            }
-        }
-
-        function GetData() {
-            var activeForm = $(".formData form");
-
-            var response = activeForm.toObject({ skipEmpty: false });
-            return response;
-        }
-
-
-        $(document).ready(function () {
-
-            ToggleNewEdit();
-
-
-            //Load edit button events in table
-            $(document).on("click", ".listEdit", function () {
-                var id = $(this).closest("tr").data("id");
-
-                LoadInputData(id);
-                return false;
-            });
-
-            //Load delete button events in table
-            $(document).on("click", ".listDelete", function () {
-                var id = $(this).closest("tr").data("id");
-
-                DeleteObject(id);
-                return false;
-            });
-
-
-            //Load cancel button event
-            $(document).on("click", "#cancelButton", function () {
-                window.location = "Products";
-            });
-
-
-
-            //Load submit event
-            $(".formData").on("submit", "form", function () {
-
-                if ($(this).valid()) {
-
-                    //Proceed with updates
-                    UpdateObject();
-                }
-                return false;
-            });
-        });
-
-
-       
-
-    </script>
+    <script src="/Scripts/Products/Products.js"></script>
 }
 
 @section stylesheets
@@ -196,11 +57,9 @@
                 <div class="editor-label">
                     @Html.LabelFor(model => model.Product.Categories)
                 </div>
-                <div id="categoriesTree">
+                <div id="categoriesTree" class="editor-field">
                     <p>
                         @Html.Partial("../Categories/_CategoriesTree", new TreeVM { Categories = Model.Categories })
-                        
-                        <script src="/Scripts/Products/Products.js"></script>
                     </p>
                 </div>
                 <div class="clearBoth"></div>
