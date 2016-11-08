@@ -1,4 +1,6 @@
 ﻿using Data.Models;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -18,6 +20,7 @@ namespace Web.Controllers
             if (id > 0)
             {
                 model.Product = _ProductBusiness.SelectOneById(id);
+                _Ctx.Entry(model.Product).Collection(p => p.Categories).Load();
             }
             else
             {
@@ -46,19 +49,20 @@ namespace Web.Controllers
             obj.Name = supplierVm.Product.Name;
             obj.SupplierId = supplierVm.Product.SupplierId;
 
-            var newCategories = supplierVm.Product.Categories;
+            var newCategories = supplierVm.Product.Categories ?? new List<Category>();
 
             if (isEdit)
             {
                 _Ctx.Entry(obj).Collection(p => p.Categories).Load();
 
                 //delete unused old categories
-
-                foreach (var oldCategory in obj.Categories)
+                //since we update the enumerated set, we need to save it's copy
+                var oldCategories = new List<Category>(obj.Categories);
+                foreach (var oldCategory in oldCategories)
                 {
                     if (!newCategories.Any(nc => nc.Id == oldCategory.Id))
                     {
-                        _Ctx.Entry<Category>(oldCategory).State = EntityState.Deleted;
+                        obj.Categories.Remove(oldCategory);
                     }
                 }
 
@@ -70,7 +74,6 @@ namespace Web.Controllers
                         obj.Categories.Add(_CategoryBusiness.SelectOneById(newCategory.Id));
                     }
                 }
-
 
                 _ProductBusiness.Update(obj);
             }

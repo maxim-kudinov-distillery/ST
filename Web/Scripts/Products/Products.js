@@ -32,6 +32,12 @@
     tree.disable_checkbox(rootNode);
     $("#root_anchor > i.jstree-checkbox").hide();
 
+    //mark categories checked
+    var categoriesToCheck = $("#categoriesTree").attr("data-selected").split(",").filter(function (value) { return value != "" });
+    $.each(categoriesToCheck, function (index, value) {
+        tree.check_node(value)
+    });
+
     function UpdateObject() {
 
         var formDataJson = GetData();
