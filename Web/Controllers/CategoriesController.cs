@@ -29,14 +29,11 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult Save(string treeJson, string nodesToDeleteJson)
+        public JsonResult Save(IList<JsTreeModel> nodes)
         {
-            var jsSerializer = new JavaScriptSerializer();
-            var tree = jsSerializer.Deserialize<List<JsTreeModel>>(treeJson);
-            if (_CategoryBusiness.TrySaveTree(tree[0], null))
+            if (_CategoryBusiness.TryDeleteNodes(nodes)) 
             {
-                var nodesToDelete = jsSerializer.Deserialize<List<NodeModel>>(nodesToDeleteJson);
-                if (_CategoryBusiness.TryDeleteNodes(nodesToDelete))
+                if (nodes.Count == 1 && _CategoryBusiness.TrySaveTree(nodes[0], null))
                 {
                     _Ctx.SaveChanges();
                     return Json(string.Empty);

@@ -77,7 +77,6 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DataContext.cs" />
     <Compile Include="Models\jsTree\JsTreeModel.cs" />
-    <Compile Include="Models\jsTree\NodeModel.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

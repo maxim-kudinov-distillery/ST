@@ -2,6 +2,7 @@
 using Data.Models.jsTree;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Controllers
 {
@@ -50,34 +51,45 @@ namespace Business.Controllers
                 }
             }
 
-            foreach (var childNode in node.children)
+            if (node.children != null)
             {
-                if (!TrySaveTree(childNode, nodeId)) return false;
+                foreach (var childNode in node.children)
+                {
+                    if (!TrySaveTree(childNode, nodeId)) return false;
+                }
             }
 
             return true;
         }
 
-        public bool TryDeleteNodes(List<NodeModel> nodesToDelete)
+        public bool TryDeleteNodes(ICollection<JsTreeModel> nodes)
         {
-            foreach (var node in nodesToDelete)
-            {
-                int nodeId;
-                if (int.TryParse(node.id, out nodeId))
-                {
-                    var nodeToRemove = _Ctx.Categories.Find(nodeId);
+            var categoriesIds = _Ctx.Categories.Select(c => c.Id);
+            var nodesIds = new HashSet<int>(GetNodesIds(nodes));
+            var nodesToDelete = categoriesIds.Except(nodesIds);
 
-                    if (nodeToRemove == null) return false;
-
-                    _Ctx.Categories.Remove(nodeToRemove);
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            _Ctx.Categories.RemoveRange(_Ctx.Categories.Where(c => nodesToDelete.Any(n=>n == c.Id)));
 
             return true;
+        }
+
+        private IEnumerable<int> GetNodesIds(ICollection<JsTreeModel> nodes)
+        {
+            if (nodes == null) yield break;
+
+            foreach (var node in nodes)
+            {
+                int id = 0;
+                if (int.TryParse(node.id, out id))
+                {
+                    yield return id;
+                }
+
+                foreach (var child_id in GetNodesIds(node.children))
+                {
+                    yield return child_id;
+                }
+            }
         }
     }
 }
