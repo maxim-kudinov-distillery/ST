@@ -73,7 +73,6 @@
       <DependentUpon>201611072113370_CategoriesToProducts.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DataContext.cs" />
     <Compile Include="Models\jsTree\JsTreeModel.cs" />
