@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Business.Controllers
 {
-    public class BaseBusiness<T> where T : BaseEntity
+    public abstract class BaseBusiness<T> where T : BaseEntity
     {
         protected readonly DataContext _Ctx;
 
